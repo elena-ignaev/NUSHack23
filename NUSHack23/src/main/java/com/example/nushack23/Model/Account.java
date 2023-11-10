@@ -115,6 +115,10 @@ public class Account {
         return hexString.toString();
     }
 
+    public static boolean validateUsername(String username) {
+        return username.contains("_");
+    }
+
 
     public ArrayList<Double> getScores() {
         // compute compability with each chat

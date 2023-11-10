@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -21,9 +22,9 @@
                   <ImageView fx:id="loginPageImageView" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </StackPane>
-            <VBox alignment="CENTER" prefHeight="702.0" prefWidth="735.0" spacing="30.0" styleClass="dark-gray-background" stylesheets="@chat-style.css">
+            <VBox fx:id="loginVBox" alignment="CENTER" prefHeight="702.0" prefWidth="735.0" spacing="30.0" styleClass="dark-gray-background" stylesheets="@chat-style.css">
                <children>
-                  <TextField fx:id="usernameTextField" prefHeight="36.0" prefWidth="304.0" promptText="Username" style="-fx-background-radius: 0.3em;">
+                  <TextField fx:id="usernameTextField" prefHeight="36.0" prefWidth="304.0" promptText="Username (3-16 chars)" style="-fx-background-radius: 0.3em;">
                      <VBox.margin>
                         <Insets left="50.0" right="50.0" top="50.0" />
                      </VBox.margin>
@@ -39,12 +40,29 @@
                         <Font size="24.0" />
                      </font>
                   </PasswordField>
-                  <Button fx:id="loginButton" mnemonicParsing="false" onAction="#login" prefHeight="48.0" prefWidth="98.0" style="-fx-background-radius: 0.3em;" stylesheets="@chat-style.css" text="Login">
+                  <StackPane alignment="TOP_CENTER" prefHeight="170.0" prefWidth="404.0">
+                     <children>
+                        <Button fx:id="loginButton" mnemonicParsing="false" onAction="#login" prefHeight="48.0" prefWidth="98.0" style="-fx-background-radius: 0.3em;" stylesheets="@chat-style.css" text="Login">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Button>
+                        <TextArea fx:id="descriptionTextArea" prefHeight="200.0" prefWidth="200.0" promptText="Description of yourself (used for recommendation of groups, min. 50 chars)" style="-fx-background-radius: 0.3em;" visible="false" wrapText="true">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <StackPane.margin>
+                              <Insets left="50.0" right="50.0" />
+                           </StackPane.margin>
+                        </TextArea>
+                     </children>
+                  </StackPane>
+                  <Button fx:id="createNewAccButton" mnemonicParsing="false" onAction="#createNewAcc" prefHeight="51.0" prefWidth="293.0" style="-fx-background-radius: 0.3em;" stylesheets="@chat-style.css" text="Create New Account">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Button>
-                  <Button fx:id="createNewAccButton" mnemonicParsing="false" onAction="#createNewAcc" prefHeight="51.0" prefWidth="293.0" style="-fx-background-radius: 0.3em;" stylesheets="@chat-style.css" text="Create New Account">
+                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#backToLogin" prefHeight="51.0" prefWidth="120.0" style="-fx-background-radius: 0.3em;" stylesheets="@chat-style.css" text="Back" visible="false">
                      <font>
                         <Font size="24.0" />
                      </font>

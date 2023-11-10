@@ -28,12 +28,22 @@ public class Database {
         throw new NoSuchElementException();
     }
 
-    public static Account makeAccount(String username, String password, String description) {
+    public static boolean accountExists(String username) {
+        for (int i=0; i<usernames.size(); i++) {
+            if (Objects.equals(usernames.get(i), username)) return true;
+        }
+        return false;
+    }
+
+    public static Account makeAccount(String username, String password, String description) throws NoSuchAlgorithmException, NullPointerException {
         // make account
         ArrayList<Double> affinities = new ArrayList<>();
         for (Chat c: all_chats) affinities.add(0.0);
-        Account a = new Account(username, password, description, new ArrayList<>(), affinities);
+        Account a = new Account(username, Account.pwdHashFunc(password), description, new ArrayList<>(), affinities);
         accounts.add(a);
+        usernames.add(username);
+        System.out.println(Arrays.toString(accounts.toArray()));
+        System.out.println(Arrays.toString(usernames.toArray()));
         // save to db
         a.save();
         saveAccountNames();
