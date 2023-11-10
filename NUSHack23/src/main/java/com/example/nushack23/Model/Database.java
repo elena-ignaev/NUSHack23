@@ -3,10 +3,7 @@ package com.example.nushack23.Model;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 import redis.clients.jedis.Jedis;
 
@@ -21,15 +18,15 @@ public class Database {
         return accounts;
     }
 
-    public static Account getAccount(String username, String password) throws NullPointerException, NoSuchAlgorithmException { // password is before hash function
+    public static Account getAccount(String username, String password) throws NullPointerException, NoSuchAlgorithmException, NoSuchElementException { // password is before hash function
         for (int i=0; i<usernames.size(); i++) {
             if (Objects.equals(usernames.get(i), username)) {
-                if (Objects.equals(passwordHashes.get(i), Account. pwdHashFunc(password))) {
+                if (Objects.equals(passwordHashes.get(i), Account.pwdHashFunc(password))) {
                     return accounts.get(i);
                 }
             }
         }
-        return null;
+        throw new NoSuchElementException();
     }
 
     public static Account makeAccount(String username, String password, String description) {
