@@ -58,11 +58,13 @@ public class Chat {
     public String toString() {
         StringBuilder str = new StringBuilder("Chat " + chatName + ": ");
         str.append(chatDesc);
+        /*
         str.append("\nMessages: \n");
         for (Message m: messages) {
             str.append(m.toString());
             str.append("\n");
         }
+        */
         str.append("\n");
         return str.toString();
     }

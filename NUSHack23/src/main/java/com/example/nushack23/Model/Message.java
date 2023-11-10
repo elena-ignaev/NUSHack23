@@ -60,7 +60,22 @@ public class Message {
 
     @Override
     public String toString() {
-        return ID+" "+replyID+" ["+sender_name+" at "+getTimestampString()+"]: "+content;
+        return chat_name+"_"+ID+"_"+sender_name+"_"+content+"_"+timestamp+"_"+replyID;
+        //return ID+" "+replyID+" [("+sender_name+") at "+getTimestampString()+"]: "+content;
+    }
+
+    public Message(String messageString) {
+        String[] data = messageString.split("_");
+        try {
+            this.chat_name = data[0];
+            this.ID = Integer.parseInt(data[1]);
+            this.sender_name = data[2];
+            this.content = data[3];
+            this.timestamp = dateFormat.parse(data[4]);
+            this.replyID = Integer.parseInt(data[5]);
+        } catch (ParseException pe) {
+            throw new RuntimeException(pe);
+        }
     }
 
 
