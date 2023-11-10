@@ -2,6 +2,18 @@ package com.example.nushack23.Model;
 
 import java.util.ArrayList;
 
+import org.apache.hc.client5.http.classic.HttpClient;
+
+import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.core5.http.ClassicHttpResponse;
+import org.apache.hc.core5.http.HttpEntity;
+import org.json.JSONObject;
+import org.apache.hc.core5.http.io.entity.StringEntity;
+
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+
 public class Chat {
     private String chatName, chatDesc;
     private ArrayList<Message> messages;
@@ -98,8 +110,40 @@ public class Chat {
     //private static Word2Vec w2vModel = WordVectorSerializer.readWord2VecModel("path/to/w2v_model.bin");
 
     private static double compareTexts(String a, String b) {
-        // TODO: CALL PYTHON API
-        return 0.0;
+        try
+        {
+            JSONObject json = new JSONObject();
+            json.put("a", "hello world");
+            json.put("b", "goodbye hehe");
+
+            HttpClient httpclient = HttpClients.createDefault();
+            HttpPost httppost = new HttpPost("http://127.0.0.1:5000");
+
+            StringEntity params = new StringEntity(json.toString());
+            httppost.addHeader("content-type", "application/json");
+            httppost.setEntity(params);
+
+            ClassicHttpResponse response = (ClassicHttpResponse) httpclient.execute(httppost);
+            HttpEntity entity = response.getEntity();
+
+            StringBuilder textBuilder = new StringBuilder();
+
+            if (entity != null) {
+                try (InputStream instream = entity.getContent()) {
+                    try (Reader reader = new BufferedReader(new InputStreamReader
+                            (instream, StandardCharsets.UTF_8))) {
+                        int c = 0;
+                        while ((c = reader.read()) != -1) {
+                            textBuilder.append((char) c);
+                        }
+                    }
+                }
+            }
+            return Double.parseDouble(textBuilder.toString());
+        }
+        catch(IOException ex) {
+            return -1;
+        }
     }
 
     private static double chat_name_weight=0.5, chat_desc_weight=0.1;
