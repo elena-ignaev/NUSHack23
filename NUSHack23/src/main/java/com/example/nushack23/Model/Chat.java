@@ -1,4 +1,65 @@
 package com.example.nushack23.Model;
 
+import java.util.ArrayList;
+
 public class Chat {
+    private String chatName, chatDesc;
+    private ArrayList<Message> messages;
+
+
+    public static Chat loadChat(String chatName) {
+        if (!Database.connected) Database.connect_to_db();
+
+        String chatDesc = Database.jedis.get(chatName+"_description");
+        ArrayList<Message> chat_messages = new ArrayList<>();
+
+        int messageCount = Integer.parseInt(Database.jedis.get(chatName+"_messageCount"));
+        for (int id=0; id<messageCount; id++) {
+            chat_messages.add(Message.loadMessage(chatName, id));
+        }
+
+        return new Chat(chatName, chatDesc, chat_messages);
+    }
+
+    public void save() {
+        if (!Database.connected) Database.connect_to_db();
+
+        Database.jedis.set(chatName+"_description", this.chatDesc);
+        Database.jedis.set(chatName+"_messageCount", String.valueOf(this.messages.size()));
+
+        for (Message m: messages) m.save();
+
+        // TODO: make it clear that this saves the message but doesn't ensure chat name is saved to account.
+    }
+
+
+    public Chat(String chatName, String chatDesc, ArrayList<Message> messages) {
+        this.chatName = chatName;
+        this.chatDesc = chatDesc;
+        this.messages = messages;
+    }
+
+    public void changeDesc(String new_desc) {
+        this.chatDesc = new_desc;
+        // TODO: SAVE NEW DESCRIPTION TO DATABASE ALREADY, with Database.jedis
+    }
+
+    public void addMessage(Message message) {
+        messages.add(message);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder("Chat " + chatName + ": ");
+        str.append(chatDesc);
+        str.append("\nMessages: \n");
+        for (Message m: messages) {
+            str.append(m.toString());
+            str.append("\n");
+        }
+        str.append("\n");
+        return str.toString();
+    }
+
+    public String getChatName() { return this.chatName; }
 }
