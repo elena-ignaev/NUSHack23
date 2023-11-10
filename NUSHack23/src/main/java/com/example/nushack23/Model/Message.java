@@ -28,7 +28,7 @@ public class Message {
     public void save() {
         if (!Database.connected) Database.connect_to_db();
         String path = this.chat_name+"_messages_"+this.ID+"_";
-        Database.jedis.set(path+"sendername", this.sender_name);
+        Database.jedis.set(path+"senderName", this.sender_name);
         Database.jedis.set(path+"content", this.content);
         Database.jedis.set(path+"timestampString", this.getTimestampString());
         Database.jedis.set(path+"replyID", String.valueOf(this.replyID));
