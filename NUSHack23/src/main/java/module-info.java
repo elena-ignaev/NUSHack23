@@ -3,7 +3,7 @@ module com.example.nushack23 {
     requires javafx.fxml;
             
         requires org.controlsfx.controls;
-                        requires org.kordamp.bootstrapfx.core;
+        requires org.kordamp.bootstrapfx.core;
 
     requires redis.clients.jedis;
     requires static kafka.clients;

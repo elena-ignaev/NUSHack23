@@ -58,10 +58,6 @@ public class LoginController {
 
     @FXML
     void createNewAcc(ActionEvent event) {
-        // TODO: Create new Account object, store in db, then log in
-        // create account method in Database will be created
-        // return the Account created = success
-        // else error
 
         if (onLogin) {
 
@@ -120,21 +116,15 @@ public class LoginController {
             ((Stage) ((Button) (event.getSource())).getScene().getWindow()).setScene(scene);
         }
         catch(NullPointerException | NoSuchAlgorithmException nex) {
-            nex.printStackTrace();
             Utility.showPopup(loginButton, "Password hash algorithm could not be accessed.");
         }
         catch(NoSuchElementException nex) {
-            nex.printStackTrace();
             Utility.showPopup(loginButton, "Invalid username/password.");
         }
         catch(IOException ioex) {
-            ioex.printStackTrace();
             Utility.showPopup(loginButton, "Home page could not be loaded.");
         }
 
-
-
-        // TODO: Log in (check credentials), send to main page
     }
 
     @FXML

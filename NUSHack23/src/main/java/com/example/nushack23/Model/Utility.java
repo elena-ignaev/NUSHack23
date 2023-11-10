@@ -24,6 +24,7 @@ public class Utility {
             });
         } catch (NullPointerException nex) {
             System.out.println("UNABLE TO SHOW UTILITY POPUP FOR "+text);
+            nex.printStackTrace();
         }
     }
 
