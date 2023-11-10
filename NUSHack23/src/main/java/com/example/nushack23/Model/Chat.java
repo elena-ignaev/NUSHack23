@@ -75,6 +75,8 @@ public class Chat {
     // vectorizer stuff
     //private static Word2Vec w2vModel = WordVectorSerializer.readWord2VecModel("path/to/w2v_model.bin");
 
+    // TODO: CALL PYTHON API
+
     private ArrayList<String> filterText(String text) {
         String[] tokens = text.split("[ ,.;]+");
         // TODO
