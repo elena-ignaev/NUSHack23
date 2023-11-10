@@ -11,9 +11,9 @@ import java.util.Scanner;
 import redis.clients.jedis.Jedis;
 
 public class Database {
-    private static ArrayList<Chat> all_chats = new ArrayList<>();
+    public static ArrayList<Chat> all_chats = new ArrayList<>();
 
-    private static ArrayList<Account> accounts = new ArrayList<>();
+    public static ArrayList<Account> accounts = new ArrayList<>();
     private static ArrayList<String> usernames = new ArrayList<>();
     private static ArrayList<String> passwordHashes = new ArrayList<>();
 
@@ -30,6 +30,29 @@ public class Database {
             }
         }
         return null;
+    }
+
+    public static Account makeAccount(String username, String password, String description) {
+        // make account
+        ArrayList<Double> affinities = new ArrayList<>();
+        for (Chat c: all_chats) affinities.add(0.0);
+        Account a = new Account(username, password, description, new ArrayList<>(), affinities);
+        accounts.add(a);
+        // save to db
+        a.save();
+        saveAccountNames();
+        return a;
+    }
+
+
+    public static Chat createChat(String chatName, String chatDesc) {
+        // make chat
+        Chat c = new Chat(chatName, chatDesc, new ArrayList<>());
+        all_chats.add(c);
+        // save to db
+        c.save();
+        saveChatNames();
+        return c;
     }
 
 
