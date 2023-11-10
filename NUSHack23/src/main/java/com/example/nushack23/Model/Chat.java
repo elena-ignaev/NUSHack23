@@ -69,6 +69,14 @@ public class Chat {
         return str.toString();
     }
 
+    public int getMessageCount() {
+        return this.messages.size();
+    }
+    public void saveMessageCount() {
+        if (!Database.connected) Database.connect_to_db();
+        Database.jedis.set(chatName+"_messageCount", String.valueOf(this.messages.size()));
+    }
+
     public String getChatName() { return this.chatName; }
 
 

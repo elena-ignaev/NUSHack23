@@ -1,19 +1,22 @@
 package com.example.nushack23.Controller;
 
-import com.example.nushack23.Model.Message;
-import com.example.nushack23.Model.Variable;
+import com.example.nushack23.Model.*;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.errors.WakeupException;
 
 import java.time.Duration;
+import java.util.Date;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ChatGroupController {
@@ -32,7 +35,7 @@ public class ChatGroupController {
     @FXML
     private TextField messageField;
     @FXML
-    private Pane chatPane;
+    private VBox chatPane;
     @FXML
     public void initialize() {
         Variable.chatGroupController = this;
@@ -41,8 +44,29 @@ public class ChatGroupController {
     @FXML
     public void send() {
 // TODO: save message to database and update for every receiver and the sender itself
-        String message = messageField.getText();
-        System.out.println(message);
+        String text = messageField.getText();
+        System.out.println(text);
+
+        if (!text.isEmpty()){
+            //display newly sent message
+            MessagePane sentMessage = new MessagePane(text);
+            chatPane.getChildren().add(sentMessage);
+            chatPane.setAlignment(Pos.BOTTOM_RIGHT);
+            chatPane.setPadding(new Insets(10, 10, 10, 10));
+        }
+
+        // save message to database
+        Chat chat = Database.getChatByName(groupChatName.getText());
+        Message message = new Message(groupChatName.getText(), chat.getMessageCount(), Variable.currentAccount.getUsername(), text, new Date(), -1);
+        chat.addMessage(message);
+        chat.saveMessageCount();
+        message.save();
+
+        //send message to kafka
+        /*
+
+         */
+
 
         messageField.clear();
     }

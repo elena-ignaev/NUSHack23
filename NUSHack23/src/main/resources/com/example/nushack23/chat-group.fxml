@@ -47,7 +47,7 @@
             </HBox>
             <ScrollPane prefHeight="642.0" prefWidth="645.0">
                <content>
-                  <Pane fx:id="chatPane" prefHeight="582.0" prefWidth="639.0" styleClass="light-gray-background" stylesheets="@chat-style.css" />
+                  <VBox fx:id="chatPane" prefHeight="582.0" prefWidth="640.0" styleClass="light-gray-background" stylesheets="@chat-style.css" />
                </content>
             </ScrollPane>
             <HBox prefHeight="110.0" prefWidth="200.0">
@@ -64,6 +64,9 @@
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
+                     <font>
+                        <Font name="Ebrima" size="14.0" />
+                     </font>
                   </TextField>
                   <Button fx:id="send" mnemonicParsing="false" onAction="#send" prefHeight="39.0" prefWidth="69.0" stylesheets="@chat-style.css" text="Send">
                      <HBox.margin>
