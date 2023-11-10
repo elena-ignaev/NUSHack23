@@ -5,9 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8c99162f-e52c-455b-9037-7b12972f31b6" name="Changes" comment="more login fxml update">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/nushack23/Controller/ChatGroupController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/nushack23/Model/MsgPane.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/nushack23/Model/TestNewMsg.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/nushack23/Model/Chat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/nushack23/Model/Chat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/nushack23/Model/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/nushack23/Model/Message.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/nushack23/Controller/ChatGroup.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/nushack23/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/nushack23/HelloApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/nushack23/Model/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/nushack23/Model/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/nushack23/Model/Variable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/nushack23/Model/Variable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/nushack23/chat-group.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/nushack23/chat-group.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +51,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Python/projects/hackatons/nush_hack_2023/NUSHack23/NUSHack23",
+    "last_opened_file_path": "C:/Users/NguyenKhanhVy/IdeaProjects/Project-CS3233-main",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2"
