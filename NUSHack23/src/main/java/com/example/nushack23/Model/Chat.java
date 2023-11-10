@@ -48,6 +48,12 @@ public class Chat {
         messages.add(message);
     }
 
+    public void sendMessage(Message message) {
+        // live sending of message
+        messages.add(message);
+        // TODO: SEND MESSAGE
+    }
+
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder("Chat " + chatName + ": ");

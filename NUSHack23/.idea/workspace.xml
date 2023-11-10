@@ -5,19 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8c99162f-e52c-455b-9037-7b12972f31b6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/jedis_auth.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/nushack23/Model/Message.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/nushack23/Model/Utility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/nushack23/Model/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/nushack23/Model/Account.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/nushack23/Model/Chat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/nushack23/Model/Chat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/nushack23/Model/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/nushack23/Model/Database.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/nushack23/Model/Testing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/nushack23/Model/Testing.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
