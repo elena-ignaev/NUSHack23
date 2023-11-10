@@ -17,14 +17,14 @@ public class ChatRecommender {
         pairs.sort((Pair<Chat, Double> p1, Pair<Chat, Double> p2) -> (p1.getValue().compareTo(p2.getValue())));
 
         ArrayList<Chat> res = new ArrayList<>();
-
+        /*
         for (Chat c: user.getChats()) {
             res.add(c);
         }
-
+        */
         for (int i=0; i<scores.size(); i++) {
             Chat c = pairs.get(i).getKey();
-            if (!(res.contains(c))) {
+            if (!(user.getChats().contains(c))) {
                 res.add(pairs.get(i).getKey());
             }
         }
