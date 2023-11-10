@@ -55,8 +55,8 @@ def word_similarities(target_word, words):
 
 def compare(a, b): # a and b are sentences
     a_words = filtertext(a)
-    highest_similarities = np.array([0.0 for _ in range(len(a_words))]) 
     b_words = filtertext(b)
+    highest_similarities = np.array([0.0 for _ in range(len(b_words))]) 
     print(a_words) 
     for i in range(len(b_words)):
         scores = word_similarities(b_words[i], a_words)
@@ -64,6 +64,7 @@ def compare(a, b): # a and b are sentences
         print(b_words[i], scores)
         print(np.max(scores), highest_similarities[i]) 
 
+    print(highest_similarities) 
     return np.median(highest_similarities) 
 
 

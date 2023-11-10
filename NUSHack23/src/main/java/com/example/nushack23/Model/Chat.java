@@ -109,12 +109,12 @@ public class Chat {
     // vectorizer stuff
     //private static Word2Vec w2vModel = WordVectorSerializer.readWord2VecModel("path/to/w2v_model.bin");
 
-    private static double compareTexts(String a, String b) {
+    public static double compareTexts(String a, String b) {
         try
         {
             JSONObject json = new JSONObject();
-            json.put("a", "hello world");
-            json.put("b", "goodbye hehe");
+            json.put("a", a);
+            json.put("b", b);
 
             HttpClient httpclient = HttpClients.createDefault();
             HttpPost httppost = new HttpPost("http://127.0.0.1:5000");
