@@ -1,15 +1,20 @@
 package com.example.nushack23.Controller;
 
+import com.example.nushack23.HelloApplication;
 import com.example.nushack23.Model.*;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -17,9 +22,14 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.errors.WakeupException;
 
+
 import java.io.File;
 import java.io.FileNotFoundException;
+
+import java.io.IOException;
+
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -32,7 +42,7 @@ public class ChatGroupController {
     @FXML
     private Button send;
     @FXML
-    private Button addFunctions;
+    private Button moreFunctions;
     @FXML
     private Label groupChatName;
     @FXML
@@ -48,6 +58,23 @@ public class ChatGroupController {
     private KafkaConsumer<String, String> consumer;
     private KafkaProducer<String, String> producer;
     private MessageReceiver receiver;
+
+    @FXML
+    private VBox existingChats;
+    @FXML
+    private VBox suggestedChats;
+    @FXML
+    private Button logOutButton;
+    public void logOut(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login.fxml"));
+
+            Scene scene = new Scene(fxmlLoader.load());
+            ((Stage) ((Button) (event.getSource())).getScene().getWindow()).setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     public void initialize() {
@@ -90,13 +117,39 @@ public class ChatGroupController {
         receiver = new MessageReceiver(consumer, this);
         new Thread(receiver).start();
         System.out.println("Receiver: "+receiver);
+
+        showChats();
+
     }
+
+    public void showChats() {
+        if (Variable.currentAccount.getChats() != null){
+            ArrayList<Chat> chats = Variable.currentAccount.getChats();
+            for (Chat chat : chats) {
+                GroupChatRep gcr = new GroupChatRep(chat.getChatName(), "");
+                existingChats.getChildren().add(gcr);
+            }
+        } else {
+            Label noChats = new Label("You are currently in new chat. Join the below suggested group chats.");
+            existingChats.getChildren().add(noChats);
+        }
+    }
+
 
     @FXML
     public void send() {
 // TODO: save message to database and update for every receiver and the sender itself
         String text = messageField.getText();
         System.out.println(text);
+
+        if (!text.isEmpty()){
+            //display newly sent message
+            MessagePane sentMessage = new MessagePane(text);
+            chatPane.getChildren().add(sentMessage);
+            chatPane.setAlignment(Pos.BOTTOM_RIGHT);
+            chatPane.setPadding(new Insets(10, 10, 10, 10));
+        }
+        messageField.clear();
 
         // save message to database
         Chat chat = Database.getChatByName(groupChatName.getText());
@@ -120,7 +173,6 @@ public class ChatGroupController {
         }
 
 
-        messageField.clear();
     }
 
     public void receive(String chatName) {
@@ -164,11 +216,8 @@ public class ChatGroupController {
         }
     }
 
-    public void displaySentMsg() {
-
-    }
-
-    public void displayReceivedMsg() {
+    @FXML
+    public void addFunctions() {
 
     }
 

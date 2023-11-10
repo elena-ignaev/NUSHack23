@@ -17,8 +17,9 @@ import java.nio.charset.StandardCharsets;
 public class Chat {
     private String chatName, chatDesc;
     private ArrayList<Message> messages;
-
-
+    public ArrayList<Message> getMessages() {
+        return this.messages;
+    }
     public static Chat loadChat(String chatName) {
         if (!Database.connected) Database.connect_to_db();
 
