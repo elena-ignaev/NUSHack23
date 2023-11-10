@@ -120,12 +120,15 @@ public class LoginController {
             ((Stage) ((Button) (event.getSource())).getScene().getWindow()).setScene(scene);
         }
         catch(NullPointerException | NoSuchAlgorithmException nex) {
+            nex.printStackTrace();
             Utility.showPopup(loginButton, "Password hash algorithm could not be accessed.");
         }
         catch(NoSuchElementException nex) {
+            nex.printStackTrace();
             Utility.showPopup(loginButton, "Invalid username/password.");
         }
         catch(IOException ioex) {
+            ioex.printStackTrace();
             Utility.showPopup(loginButton, "Home page could not be loaded.");
         }
 

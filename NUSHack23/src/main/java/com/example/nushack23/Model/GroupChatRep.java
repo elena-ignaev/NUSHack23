@@ -16,7 +16,10 @@ public class GroupChatRep extends HBox {
         setHeight(85);
         setWidth(289);
         setPadding(new Insets(0,5,5,5));
-        ImageView groupChatPfp = new ImageView(new Image("defaultpfp.png"));
+        ImageView groupChatPfp = new ImageView(new Image("file:defaultpfp.png"));
+        groupChatPfp.setPreserveRatio(true);
+        groupChatPfp.setFitWidth(52);
+        groupChatPfp.setFitHeight(58);
         Label groupChatName = new Label(chatName);
         groupChatName.setStyle("-fx-font-size: 16px");
         Label latestMessage = new Label(latest);
