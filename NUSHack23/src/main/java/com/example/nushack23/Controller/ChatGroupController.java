@@ -12,8 +12,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -38,15 +39,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ChatGroupController {
     @FXML
-    private Button joinGroup;
-    @FXML
     private Button send;
     @FXML
     private Button moreFunctions;
     @FXML
     private Label groupChatName;
     @FXML
-    private Label memberNames;
+    private Label memberNamesLabel;
     @FXML
     private ImageView groupChatPfp;
     @FXML
@@ -54,17 +53,23 @@ public class ChatGroupController {
     @FXML
     private VBox chatPane;
 
+    @FXML
+    private TextField searchGroupField;
+
     private Properties consumer_props, producer_props;
     private KafkaConsumer<String, String> consumer;
     private KafkaProducer<String, String> producer;
     private MessageReceiver receiver;
 
     @FXML
-    private VBox existingChats;
-    @FXML
-    private VBox suggestedChats;
+    private VBox chatsBox;
+
     @FXML
     private Button logOutButton;
+
+    @FXML
+    private HBox chatInfoHBox, chatOptionsHBox;
+
     public void logOut(ActionEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login.fxml"));
@@ -118,60 +123,141 @@ public class ChatGroupController {
         new Thread(receiver).start();
         System.out.println("Receiver: "+receiver);
 
-        showChats();
+        refreshChats();
 
+        chatOptionsHBox.setVisible(false);
     }
 
-    public void showChats() {
+    private int selectedIdx = -1;
+
+    public void refreshChats() {
+        chatsBox.getChildren().clear();
+        int i = 0;
+        // add current chats
         if (Variable.currentAccount.getChats() != null){
             ArrayList<Chat> chats = Variable.currentAccount.getChats();
             for (Chat chat : chats) {
-                GroupChatRep gcr = new GroupChatRep(chat.getChatName(), "");
-                existingChats.getChildren().add(gcr);
+                GroupChatRep gcr = new GroupChatRep(chat, i==selectedIdx);
+                chatsBox.getChildren().add(gcr);
+                int finalI = i;
+                gcr.btn.setOnAction( (ActionEvent e) -> select(finalI) );
+                i++;
             }
         } else {
             Label noChats = new Label("You are currently in new chat. Join the below suggested group chats.");
-            existingChats.getChildren().add(noChats);
+            chatsBox.getChildren().add(noChats);
         }
+
+        // add dividing line
+        Line line = new Line(0, 0, 250, 0);
+        VBox.setMargin(line, new Insets(5, 20, 5, 20));
+        line.setStrokeWidth(5);
+        chatsBox.getChildren().add(line);
+        i++;
+
+        // add chats not in yet, in order of recommendation
+        for (Chat c: ChatRecommender.getDisplayOrder(Variable.currentAccount)) {
+            GroupChatRep gcr = new GroupChatRep(c, i==selectedIdx);
+            chatsBox.getChildren().add(gcr);
+            int finalI = i;
+            gcr.btn.setOnAction( (ActionEvent e) -> select(finalI) );
+            i++;
+        }
+    }
+
+    public void select(int idx) {
+        selectedIdx = idx;
+        updateSelecteds();
+        Chat currChat = ((GroupChatRep)chatsBox.getChildren().get(selectedIdx)).chat;
+        Variable.currentChat = currChat;
+        updateChatArea(Variable.currentAccount.getChats().contains(currChat));
+    }
+
+    private void updateSelecteds() {
+        for (int i=0; i<chatsBox.getChildren().size(); i++) {
+            if (chatsBox.getChildren().get(i) instanceof GroupChatRep) {
+                ((GroupChatRep)chatsBox.getChildren().get(i)).setSelected(i==selectedIdx);
+            }
+        }
+    }
+
+
+    private void updateChatArea(boolean alreadyIn) {
+        if (alreadyIn) {
+            chatInfoHBox.setVisible(true);
+            chatPane.setVisible(true);
+            groupChatPfp.setVisible(true);
+            groupChatName.setVisible(true);
+            memberNamesLabel.setVisible(true):
+            groupChatName.setText(Variable.currentChat.getChatName());
+            memberNamesLabel.setText(Variable.currentChat.getMemberNames());
+            showChatHistory();
+            chatOptionsHBox.setVisible(true);
+        } else {
+            chatInfoHBox.setVisible(true);
+            chatPane.setVisible(false);
+            groupChatPfp.setVisible(false);
+            groupChatName.setVisible(false);
+            memberNamesLabel.setVisible(false):
+            chatOptionsHBox.setVisible(false);
+
+            Label joinGroupLabel = new Label("Join group?");
+            Button joinGroupBtn = new Button("Yes");
+            joinGroupBtn.setOnAction(this::joinCurrentGroup);
+            HBox hbox = new HBox(joinGroupLabel, joinGroupBtn);
+            hbox.setSpacing(5);
+            hbox.setPrefHeight(10);
+            Utility.showPopup(chatsBox.getChildren().get(selectedIdx), hbox);
+        }
+    }
+
+    public void joinCurrentGroup(ActionEvent event) {
+        Variable.currentAccount.addChat(Variable.currentChat);
+        refreshChats();
+        updateChatArea(true);
+    }
+
+
+    public void showChatHistory() {
+        for (Message m: Variable.currentChat.getMessages()) {
+            MessagePane sentMessage = new MessagePane(m.getSender_name(), m.getContent(), m.getSender_name().equals(Variable.currentAccount.getUsername()));
+            chatPane.getChildren().add(sentMessage);
+        }
+    }
+
+    @FXML
+    public void updateSearch(ActionEvent event) {
+        // TODO: UPDATE WHICH CHATS ARE SHOWN IN SEARCH
     }
 
 
     @FXML
     public void send() {
-// TODO: save message to database and update for every receiver and the sender itself
+    // TODO: save message to database and update for every receiver and the sender itself
         String text = messageField.getText();
         System.out.println(text);
 
         if (!text.isEmpty()){
+            // save message to database
+            Chat chat = Database.getChatByName(groupChatName.getText());
+            Message message = new Message(groupChatName.getText(), chat.getMessageCount(), Variable.currentAccount.getUsername(), text, new Date(), -1);
+            chat.addMessage(message);
+            chat.saveMessageCount();
+            message.save();
+
+            //send message to kafka
+            producer = new KafkaProducer<>(producer_props);
+            producer.send(new ProducerRecord<>("Refreshes", groupChatName.getText()));
+            producer.flush();
+            producer.close();
+
             //display newly sent message
-            MessagePane sentMessage = new MessagePane(text);
+            MessagePane sentMessage = new MessagePane(Variable.currentAccount.getUsername(), text, true);
             chatPane.getChildren().add(sentMessage);
             chatPane.setAlignment(Pos.BOTTOM_RIGHT);
             chatPane.setPadding(new Insets(10, 10, 10, 10));
         }
         messageField.clear();
-
-        // save message to database
-        Chat chat = Database.getChatByName(groupChatName.getText());
-        Message message = new Message(groupChatName.getText(), chat.getMessageCount(), Variable.currentAccount.getUsername(), text, new Date(), -1);
-        chat.addMessage(message);
-        chat.saveMessageCount();
-        message.save();
-
-        //send message to kafka
-        producer = new KafkaProducer<>(producer_props);
-        producer.send(new ProducerRecord<>("Refreshes", groupChatName.getText()));
-        producer.flush();
-        producer.close();
-
-        if (!text.isEmpty()){
-            //display newly sent message
-            MessagePane sentMessage = new MessagePane(text);
-            chatPane.getChildren().add(sentMessage);
-            chatPane.setAlignment(Pos.BOTTOM_RIGHT);
-            chatPane.setPadding(new Insets(10, 10, 10, 10));
-        }
-
 
     }
 

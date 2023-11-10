@@ -123,9 +123,9 @@ public class Account {
 
         // compute highest chat similarities to current chats
         ArrayList<Double> similarities = new ArrayList<>();
-        for (Chat c1: chats) {
-            double highest_similarity = 0;
-            for (Chat c2: Database.all_chats) {
+        for (Chat c2: Database.all_chats) {
+            double highest_similarity = 0.0;
+            for (Chat c1: this.chats) {
                 highest_similarity = Math.max(highest_similarity, c1.similarityTo(c2));
             }
             similarities.add(highest_similarity);
@@ -141,5 +141,12 @@ public class Account {
         }
 
         return scores;
+    }
+
+    public void addChat(Chat chat) {
+        this.chats.add(chat);
+        ArrayList<String> chatNames = new ArrayList<>();
+        for (Chat c: this.chats) chatNames.add(c.getChatName());
+        Database.setJedisList(this.username+"_chats", chatNames);
     }
 }

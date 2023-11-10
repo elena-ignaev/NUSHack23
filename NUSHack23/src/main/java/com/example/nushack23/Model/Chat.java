@@ -106,6 +106,19 @@ public class Chat {
         return this.chatName;
     }
 
+    public String getDesc() { return this.chatDesc; }
+
+    public String getMemberNames() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Account a: Database.accounts) {
+            if (a.getChats().contains(this)) {
+                stringBuilder.append(a.getUsername());
+                stringBuilder.append(", ");
+            }
+        }
+        stringBuilder.replace(stringBuilder.length()-2, stringBuilder.length(), "");
+        return stringBuilder.toString();
+    }
 
     // vectorizer stuff
     //private static Word2Vec w2vModel = WordVectorSerializer.readWord2VecModel("path/to/w2v_model.bin");
