@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="702.0" prefWidth="1006.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="702.0" prefWidth="1006.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.nushack23.Controller.ChatGroup">
    <center>
       <VBox prefHeight="702.0" prefWidth="783.0" BorderPane.alignment="CENTER">
          <children>
@@ -27,20 +27,26 @@
             </ScrollPane>
             <HBox prefHeight="110.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="addFunctions" mnemonicParsing="false" prefHeight="42.0" prefWidth="42.0" stylesheets="@chat-style.css" text="+">
+                  <Button fx:id="addFunctions" mnemonicParsing="false" prefHeight="42.0" prefWidth="54.0" stylesheets="@chat-style.css" text="+">
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
+                     <font>
+                        <Font name="Ebrima" size="16.0" />
+                     </font>
                   </Button>
                   <TextField prefHeight="43.0" prefWidth="505.0" promptText="Type your mesage here...">
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
                   </TextField>
-                  <Button fx:id="send" mnemonicParsing="false" prefHeight="31.0" prefWidth="88.0" stylesheets="@chat-style.css" text="Send">
+                  <Button fx:id="send" mnemonicParsing="false" prefHeight="39.0" prefWidth="77.0" stylesheets="@chat-style.css" text="Send">
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
+                     <font>
+                        <Font name="Ebrima" size="13.0" />
+                     </font>
                   </Button>
                </children>
             </HBox>
