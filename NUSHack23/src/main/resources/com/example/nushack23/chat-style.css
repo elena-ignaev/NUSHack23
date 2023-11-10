@@ -1,0 +1,20 @@
+.dark-gray-background{
+    -fx-background-color: dimgray;
+}
+
+.gray-background{
+    -fx-background-color: gray;
+}
+
+.light-gray-background{
+    -fx-background-color: gainsboro;
+}
+
+.transparent-background{
+    -fx-background-color: transparent;
+}
+
+.button {
+    -fx-background-color: cornflowerblue;
+    -fx-text-fill: white;
+}
