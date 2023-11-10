@@ -72,10 +72,11 @@ public class Chat {
 
     public double similarityTo(Chat chat) {
         // compute similarity between chats using word vectorizer
-
+        return 0.0;
     }
 
     public double compatibilityWith(String desc) {
         // compute compatibility between person's description and chats
+        return 0.0;
     }
 }

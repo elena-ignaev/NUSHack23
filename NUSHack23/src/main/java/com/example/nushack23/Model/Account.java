@@ -113,11 +113,6 @@ public class Account {
         return hexString.toString();
     }
 
-<<<<<<< Updated upstream
-    // 602fae580f5863abfb31bf356decfdc73bf1224a62aacf6b4829ffa2dbe58390
-
-}
-=======
 
     public ArrayList<Double> getScores() {
         // compute compability with each chat
@@ -148,4 +143,3 @@ public class Account {
         return scores;
     }
 }
->>>>>>> Stashed changes
