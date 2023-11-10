@@ -12,7 +12,6 @@ public class Database {
 
     public static ArrayList<Account> accounts = new ArrayList<>();
     private static ArrayList<String> usernames = new ArrayList<>();
-    private static ArrayList<String> passwordHashes = new ArrayList<>();
 
     public static ArrayList<Account> getAccounts() {
         return accounts;
@@ -21,7 +20,7 @@ public class Database {
     public static Account getAccount(String username, String password) throws NullPointerException, NoSuchAlgorithmException, NoSuchElementException { // password is before hash function
         for (int i=0; i<usernames.size(); i++) {
             if (Objects.equals(usernames.get(i), username)) {
-                if (Objects.equals(passwordHashes.get(i), Account.pwdHashFunc(password))) {
+                if (accounts.get(i).correctPwdHash(Account.pwdHashFunc(password))) {
                     return accounts.get(i);
                 }
             }
@@ -144,7 +143,9 @@ public class Database {
 
         List<String> accountNames = jedis.lrange("Accounts", 0, -1);
         for (String accountName: accountNames) {
-            accounts.add(Account.loadAccount(accountName));
+            Account a = Account.loadAccount(accountName);
+            accounts.add(a);
+            usernames.add(a.getUsername());
         }
     }
 

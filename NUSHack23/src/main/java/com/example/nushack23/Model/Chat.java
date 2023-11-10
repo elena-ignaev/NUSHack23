@@ -70,8 +70,20 @@ public class Chat {
     public String getChatName() { return this.chatName; }
 
 
+    // vectorizer stuff
+    //private static Word2Vec w2vModel = WordVectorSerializer.readWord2VecModel("path/to/w2v_model.bin");
+
+    private ArrayList<String> filterText(String text) {
+        String[] tokens = text.split("[ ,.;]+");
+        // TODO
+        return new ArrayList<>();
+    }
+
     public double similarityTo(Chat chat) {
         // compute similarity between chats using word vectorizer
+
+        // compare chat names
+
         return 0.0;
     }
 

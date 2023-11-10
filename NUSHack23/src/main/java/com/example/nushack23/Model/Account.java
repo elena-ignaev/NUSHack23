@@ -90,6 +90,8 @@ public class Account {
             accountString.append(", ");
         }
         accountString.append("\n");
+        // TODO: REMOVE WHEN FINISHED TESTING
+        accountString.append("password hash: "+this.pwdHash+"\n\n");
         return accountString.toString();
     }
 

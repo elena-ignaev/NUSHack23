@@ -7,6 +7,7 @@ module com.example.nushack23 {
 
     requires redis.clients.jedis;
     requires static kafka.clients;
+    //requires deeplearning4j.core;
 
     opens com.example.nushack23 to javafx.fxml;
     exports com.example.nushack23;
