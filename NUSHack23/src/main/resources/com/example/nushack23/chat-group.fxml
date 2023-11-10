@@ -70,7 +70,7 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
                      <font>
-                        <Font name="Ebrima" size="13.0" />
+                        <Font name="Ebrima" size="14.0" />
                      </font>
                   </Button>
                </children>

@@ -15,6 +15,10 @@
 }
 
 .button {
-    -fx-background-color: cornflowerblue;
-    -fx-text-fill: white;
+    -fx-background-color: #48b9da;
+    -fx-text-fill: black;
+}
+
+.button:hover {
+    -fx-background-color: #1c91bd;
 }
