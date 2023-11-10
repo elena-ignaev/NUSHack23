@@ -95,12 +95,6 @@ public class Account {
         return accountString.toString();
     }
 
-
-    // TODO: DO MESSAGES WITH KAFKA
-    public void sendMessage() {
-        // TODO
-    }
-
     public static String pwdHashFunc(String pwd) throws NullPointerException, NoSuchAlgorithmException {
         String pwdHash = "";
         MessageDigest md = MessageDigest.getInstance("SHA-256");

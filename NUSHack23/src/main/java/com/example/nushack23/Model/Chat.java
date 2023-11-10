@@ -10,11 +10,11 @@ public class Chat {
     public static Chat loadChat(String chatName) {
         if (!Database.connected) Database.connect_to_db();
 
-        String chatDesc = Database.jedis.get(chatName+"_description");
+        String chatDesc = Database.jedis.get(chatName + "_description");
         ArrayList<Message> chat_messages = new ArrayList<>();
 
-        int messageCount = Integer.parseInt(Database.jedis.get(chatName+"_messageCount"));
-        for (int id=0; id<messageCount; id++) {
+        int messageCount = Integer.parseInt(Database.jedis.get(chatName + "_messageCount"));
+        for (int id = 0; id < messageCount; id++) {
             chat_messages.add(Message.loadMessage(chatName, id));
         }
 
@@ -24,10 +24,10 @@ public class Chat {
     public void save() {
         if (!Database.connected) Database.connect_to_db();
 
-        Database.jedis.set(chatName+"_description", this.chatDesc);
-        Database.jedis.set(chatName+"_messageCount", String.valueOf(this.messages.size()));
+        Database.jedis.set(chatName + "_description", this.chatDesc);
+        Database.jedis.set(chatName + "_messageCount", String.valueOf(this.messages.size()));
 
-        for (Message m: messages) m.save();
+        for (Message m : messages) m.save();
 
         // TODO: make it clear that this saves the message but doesn't ensure chat name is saved to account.
     }
@@ -69,6 +69,7 @@ public class Chat {
         return str.toString();
     }
 
+<<<<<<< Updated upstream
     public int getMessageCount() {
         return this.messages.size();
     }
@@ -78,29 +79,37 @@ public class Chat {
     }
 
     public String getChatName() { return this.chatName; }
+=======
+    public String getChatName() {
+        return this.chatName;
+    }
+>>>>>>> Stashed changes
 
 
     // vectorizer stuff
     //private static Word2Vec w2vModel = WordVectorSerializer.readWord2VecModel("path/to/w2v_model.bin");
 
-    // TODO: CALL PYTHON API
-
-    private ArrayList<String> filterText(String text) {
-        String[] tokens = text.split("[ ,.;]+");
-        // TODO
-        return new ArrayList<>();
+    private static double compareTexts(String a, String b) {
+        // TODO: CALL PYTHON API
+        return 0.0;
     }
 
+    private static double chat_name_weight=0.5, chat_desc_weight=0.1;
     public double similarityTo(Chat chat) {
         // compute similarity between chats using word vectorizer
 
         // compare chat names
+        double chat_name_similarity = compareTexts(this.chatName, chat.chatName);
 
-        return 0.0;
+        // compare chat descriptions
+        double chat_desc_similarity = compareTexts(this.chatDesc, chat.chatDesc);
+
+        // weighted average
+        return (chat_name_weight*chat_name_similarity + chat_desc_weight*chat_desc_similarity)/(chat_name_weight+chat_desc_weight);
     }
 
     public double compatibilityWith(String desc) {
         // compute compatibility between person's description and chats
-        return 0.0;
+        return Math.min(1.0, compareTexts(this.chatDesc, desc)*2);
     }
 }
