@@ -1,5 +1,6 @@
 package com.example.nushack23.Controller;
 
+import com.example.nushack23.Model.Database;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -34,6 +35,7 @@ public class LoginController {
 
     @FXML
     void login(ActionEvent event) {
+
         // TODO: Log in (check credentials), send to main page
     }
 }

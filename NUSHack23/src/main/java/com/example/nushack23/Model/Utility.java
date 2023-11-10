@@ -9,7 +9,7 @@ import org.controlsfx.control.PopOver;
 import java.util.ArrayList;
 
 public class Utility {
-    // showing popups e.g. error popups 
+    // showing popups e.g. error popups
     public static void showPopup(Node node, String text) {
         try {
             Platform.runLater(new Runnable() {
