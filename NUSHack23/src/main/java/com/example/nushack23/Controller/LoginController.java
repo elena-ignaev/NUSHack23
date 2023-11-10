@@ -26,11 +26,14 @@ public class LoginController {
 
     @FXML
     void createNewAcc(ActionEvent event) {
-
+        // TODO: Create new Account object, store in db, then log in
+        // create account method in Database will be created
+        // return null = error
+        // return the Account created = success
     }
 
     @FXML
     void login(ActionEvent event) {
-
+        // TODO: Log in (check credentials), send to main page
     }
 }

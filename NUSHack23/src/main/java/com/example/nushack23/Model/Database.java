@@ -2,6 +2,7 @@ package com.example.nushack23.Model;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -10,9 +11,9 @@ import java.util.Scanner;
 import redis.clients.jedis.Jedis;
 
 public class Database {
-    private static ArrayList<Chat> all_chats = new ArrayList<>();
+    public static ArrayList<Chat> all_chats = new ArrayList<>();
 
-    private static ArrayList<Account> accounts = new ArrayList<>();
+    public static ArrayList<Account> accounts = new ArrayList<>();
     private static ArrayList<String> usernames = new ArrayList<>();
     private static ArrayList<String> passwordHashes = new ArrayList<>();
 
@@ -20,15 +21,38 @@ public class Database {
         return accounts;
     }
 
-    public static Account getAccount(String username, String password) { // password is before hash function
+    public static Account getAccount(String username, String password) throws NullPointerException, NoSuchAlgorithmException { // password is before hash function
         for (int i=0; i<usernames.size(); i++) {
             if (Objects.equals(usernames.get(i), username)) {
-                if (Objects.equals(passwordHashes.get(i), Account.pwdHashFunc(password))) {
+                if (Objects.equals(passwordHashes.get(i), Account. pwdHashFunc(password))) {
                     return accounts.get(i);
                 }
             }
         }
         return null;
+    }
+
+    public static Account makeAccount(String username, String password, String description) {
+        // make account
+        ArrayList<Double> affinities = new ArrayList<>();
+        for (Chat c: all_chats) affinities.add(0.0);
+        Account a = new Account(username, password, description, new ArrayList<>(), affinities);
+        accounts.add(a);
+        // save to db
+        a.save();
+        saveAccountNames();
+        return a;
+    }
+
+
+    public static Chat createChat(String chatName, String chatDesc) {
+        // make chat
+        Chat c = new Chat(chatName, chatDesc, new ArrayList<>());
+        all_chats.add(c);
+        // save to db
+        c.save();
+        saveChatNames();
+        return c;
     }
 
 
