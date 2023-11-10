@@ -21,6 +21,18 @@ public class Chat {
         return new Chat(chatName, chatDesc, chat_messages);
     }
 
+    public void reload() {
+        if (!Database.connected) Database.connect_to_db();
+
+        this.chatDesc = Database.jedis.get(this.chatName + "_description");
+        this.messages = new ArrayList<>();
+
+        int messageCount = Integer.parseInt(Database.jedis.get(this.chatName + "_messageCount"));
+        for (int id = 0; id < messageCount; id++) {
+            this.messages.add(Message.loadMessage(chatName, id));
+        }
+    }
+
     public void save() {
         if (!Database.connected) Database.connect_to_db();
 
@@ -69,7 +81,6 @@ public class Chat {
         return str.toString();
     }
 
-<<<<<<< Updated upstream
     public int getMessageCount() {
         return this.messages.size();
     }
@@ -78,12 +89,9 @@ public class Chat {
         Database.jedis.set(chatName+"_messageCount", String.valueOf(this.messages.size()));
     }
 
-    public String getChatName() { return this.chatName; }
-=======
     public String getChatName() {
         return this.chatName;
     }
->>>>>>> Stashed changes
 
 
     // vectorizer stuff
