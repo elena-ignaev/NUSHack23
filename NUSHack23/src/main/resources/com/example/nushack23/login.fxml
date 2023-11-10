@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -15,35 +16,39 @@
    <children>
       <HBox layoutX="184.0" layoutY="283.0" prefHeight="702.0" prefWidth="1006.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <StackPane prefHeight="702.0" prefWidth="934.0">
+            <StackPane prefHeight="702.0" prefWidth="934.0" styleClass="gray-background" stylesheets="@chat-style.css">
                <children>
-                  <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="loginPageImageView" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </StackPane>
-            <VBox alignment="CENTER" prefHeight="702.0" prefWidth="735.0" spacing="10.0">
+            <VBox alignment="CENTER" prefHeight="702.0" prefWidth="735.0" spacing="30.0" styleClass="dark-gray-background" stylesheets="@chat-style.css">
                <children>
-                  <TextField fx:id="usernameTextField" prefHeight="36.0" prefWidth="304.0" promptText="Username">
+                  <TextField fx:id="usernameTextField" prefHeight="36.0" prefWidth="304.0" promptText="Username" style="-fx-background-radius: 0.3em;">
                      <VBox.margin>
                         <Insets left="50.0" right="50.0" top="50.0" />
                      </VBox.margin>
                      <font>
-                        <Font size="16.0" />
+                        <Font size="24.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="passwordTextField" prefHeight="36.0" prefWidth="294.0" promptText="Password">
+                  <PasswordField fx:id="passwordField" prefHeight="36.0" promptText="Password" style="-fx-background-radius: 0.3em;">
                      <VBox.margin>
                         <Insets left="50.0" right="50.0" />
                      </VBox.margin>
                      <font>
-                        <Font size="16.0" />
+                        <Font size="24.0" />
                      </font>
-                  </TextField>
-                  <Button fx:id="loginButton" mnemonicParsing="false" onAction="#login" prefHeight="48.0" prefWidth="98.0" text="Login">
+                  </PasswordField>
+                  <Button fx:id="loginButton" mnemonicParsing="false" onAction="#login" prefHeight="48.0" prefWidth="98.0" style="-fx-background-radius: 0.3em;" stylesheets="@chat-style.css" text="Login">
                      <font>
-                        <Font size="16.0" />
+                        <Font size="24.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" text="Button" />
+                  <Button fx:id="createNewAccButton" mnemonicParsing="false" onAction="#createNewAcc" prefHeight="51.0" prefWidth="293.0" style="-fx-background-radius: 0.3em;" stylesheets="@chat-style.css" text="Create New Account">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Button>
                </children>
             </VBox>
          </children>
