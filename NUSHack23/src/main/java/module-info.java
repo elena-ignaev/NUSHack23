@@ -10,4 +10,7 @@ module com.example.nushack23 {
 
     opens com.example.nushack23 to javafx.fxml;
     exports com.example.nushack23;
+
+    opens com.example.nushack23.Controller to javafx.fxml;
+    exports com.example.nushack23.Controller;
 }
