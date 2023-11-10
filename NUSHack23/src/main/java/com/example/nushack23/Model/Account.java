@@ -1,5 +1,8 @@
 package com.example.nushack23.Model;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -63,10 +66,20 @@ public class Account {
         // TODO
     }
 
-    public static String pwdHashFunc(String pwd) {
+    public static String pwdHashFunc(String pwd) throws NullPointerException, NoSuchAlgorithmException {
         String pwdHash = "";
-        pwdHash = pwd;
-        return pwdHash;
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        byte[] hash = md.digest(pwd.getBytes(StandardCharsets.UTF_8));
+        StringBuilder hexString = new StringBuilder();
+        for (int i = 0; i < hash.length; i++) {
+            final String hex = Integer.toHexString(0xff & hash[i]);
+            if(hex.length() == 1)
+                hexString.append('0');
+            hexString.append(hex);
+        }
+        return hexString.toString();
     }
+
+    // 602fae580f5863abfb31bf356decfdc73bf1224a62aacf6b4829ffa2dbe58390
 
 }
