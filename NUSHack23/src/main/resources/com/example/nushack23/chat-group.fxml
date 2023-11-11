@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="702.0" prefWidth="1006.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.nushack23.Controller.ChatGroupController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="702.0" prefWidth="1006.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.nushack23.Controller.ChatGroupController">
    <center>
       <VBox prefHeight="702.0" prefWidth="783.0" BorderPane.alignment="CENTER">
          <children>
@@ -43,7 +43,7 @@
                   </VBox>
                </children>
             </HBox>
-            <ScrollPane prefHeight="642.0" prefWidth="645.0">
+            <ScrollPane fx:id="scrollPane" prefHeight="642.0" prefWidth="645.0" visible="false">
                <content>
                   <VBox fx:id="chatPane" prefHeight="582.0" prefWidth="640.0" styleClass="light-gray-background" stylesheets="@chat-style.css" />
                </content>
@@ -97,7 +97,7 @@
             </AnchorPane>
             <VBox alignment="TOP_CENTER" prefHeight="702.0" prefWidth="293.0" spacing="20.0" styleClass="dark-gray-background" stylesheets="@chat-style.css">
                <children>
-                  <TextField fx:id="searchGroupField" maxWidth="255.0" onAction="#updateSearch" prefHeight="33.0" prefWidth="255.0" promptText="Search for a group...">
+                  <TextField fx:id="searchGroupField" maxWidth="255.0" onKeyTyped="#updateSearch" prefHeight="33.0" prefWidth="255.0" promptText="Search for a group...">
                      <font>
                         <Font name="Ebrima" size="14.0" />
                      </font>

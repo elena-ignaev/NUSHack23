@@ -16,6 +16,9 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -57,6 +60,8 @@ public class ChatGroupController {
     private TextField messageField;
     @FXML
     private VBox chatPane;
+    @FXML
+    private ScrollPane scrollPane;
 
     @FXML
     private TextField searchGroupField;
@@ -186,6 +191,8 @@ public class ChatGroupController {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
+                if (!scrollPane.isVisible()) scrollPane.setVisible(true);
+                scrollPane.setFitToWidth(true);
                 selectedIdx = idx;
                 updateSelecteds();
                 Chat currChat = ((GroupChatRep)chatsBox.getChildren().get(selectedIdx)).chat;
@@ -272,7 +279,7 @@ public class ChatGroupController {
     }
 
     @FXML
-    public void updateSearch(ActionEvent event) {
+    public void updateSearch(KeyEvent event) {
         // TODO: UPDATE WHICH CHATS ARE SHOWN IN SEARCH
         System.out.println(searchGroupField.getText());
         Platform.runLater(new Runnable() {
