@@ -13,6 +13,9 @@ import org.apache.hc.core5.http.io.entity.StringEntity;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Set;
 
 public class Chat {
     private String chatName, chatDesc;
@@ -109,12 +112,17 @@ public class Chat {
     public String getDesc() { return this.chatDesc; }
 
     public String getMemberNames() {
-        StringBuilder stringBuilder = new StringBuilder();
+        ArrayList<String> usernames = new ArrayList<>();
         for (Account a: Database.accounts) {
             if (a.getChats().contains(this)) {
-                stringBuilder.append(a.getUsername());
-                stringBuilder.append(", ");
+                if (!(usernames.contains(a.getUsername()))) usernames.add(a.getUsername());
             }
+        }
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String u: usernames) {
+            stringBuilder.append(u);
+            stringBuilder.append(", ");
         }
         stringBuilder.replace(stringBuilder.length()-2, stringBuilder.length(), "");
         return stringBuilder.toString();
