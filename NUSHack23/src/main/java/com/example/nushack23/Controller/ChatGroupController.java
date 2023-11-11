@@ -84,6 +84,7 @@ public class ChatGroupController {
 
     public void logOut(ActionEvent event) {
         try {
+            Database.clear();
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login.fxml"));
 
             Scene scene = new Scene(fxmlLoader.load());

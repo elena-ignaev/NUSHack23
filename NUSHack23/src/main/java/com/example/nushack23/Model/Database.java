@@ -135,8 +135,14 @@ public class Database {
         }
     }
 
+    public static void clear() {
+        accounts = new ArrayList<>();
+        usernames = new ArrayList<>();
+        all_chats = new ArrayList<>();
+    }
 
     public static void loadDatabase() {
+        clear();
         loadChats();
         loadAccounts();
     }
