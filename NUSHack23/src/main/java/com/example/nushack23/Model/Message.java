@@ -31,6 +31,7 @@ public class Message {
         Database.jedis.set(path+"senderName", this.sender_name);
         Database.jedis.set(path+"content", this.content);
         Database.jedis.set(path+"timestampString", this.getTimestampString());
+        System.out.println("SAVING replyID: "+String.valueOf(this.replyID));
         Database.jedis.set(path+"replyID", String.valueOf(this.replyID));
         // TODO: make sure it's clear that in this, message is saved only but not updated to be of chat
     }

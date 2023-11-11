@@ -2,14 +2,17 @@ package com.example.nushack23.Controller;
 
 import com.example.nushack23.HelloApplication;
 import com.example.nushack23.Model.*;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -43,9 +46,9 @@ public class ChatGroupController {
     @FXML
     private Button moreFunctions;
     @FXML
-    private Label groupChatName;
+    private Button groupChatName;
     @FXML
-    private Label memberNamesLabel;
+    private Button memberNamesBtn;
     @FXML
     private ImageView groupChatPfp;
     @FXML
@@ -123,8 +126,18 @@ public class ChatGroupController {
         new Thread(receiver).start();
         System.out.println("Receiver: "+receiver);
 
-        refreshChats();
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                refreshChats();
+            }
+        });
 
+        chatInfoHBox.setVisible(false);
+        chatPane.setVisible(false);
+        groupChatPfp.setVisible(false);
+        groupChatName.setVisible(false);
+        memberNamesBtn.setVisible(false);
         chatOptionsHBox.setVisible(false);
     }
 
@@ -137,6 +150,7 @@ public class ChatGroupController {
         if (Variable.currentAccount.getChats() != null){
             ArrayList<Chat> chats = Variable.currentAccount.getChats();
             for (Chat chat : chats) {
+                if (!chat.getChatName().contains(searchGroupField.getText())) continue;
                 GroupChatRep gcr = new GroupChatRep(chat, i==selectedIdx);
                 chatsBox.getChildren().add(gcr);
                 int finalI = i;
@@ -157,6 +171,7 @@ public class ChatGroupController {
 
         // add chats not in yet, in order of recommendation
         for (Chat c: ChatRecommender.getDisplayOrder(Variable.currentAccount)) {
+            if (!c.getChatName().contains(searchGroupField.getText())) continue;
             GroupChatRep gcr = new GroupChatRep(c, i==selectedIdx);
             chatsBox.getChildren().add(gcr);
             int finalI = i;
@@ -166,11 +181,16 @@ public class ChatGroupController {
     }
 
     public void select(int idx) {
-        selectedIdx = idx;
-        updateSelecteds();
-        Chat currChat = ((GroupChatRep)chatsBox.getChildren().get(selectedIdx)).chat;
-        Variable.currentChat = currChat;
-        updateChatArea(Variable.currentAccount.getChats().contains(currChat));
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                selectedIdx = idx;
+                updateSelecteds();
+                Chat currChat = ((GroupChatRep)chatsBox.getChildren().get(selectedIdx)).chat;
+                Variable.currentChat = currChat;
+                updateChatArea(Variable.currentAccount.getChats().contains(currChat));
+            }
+        });
     }
 
     private void updateSelecteds() {
@@ -184,22 +204,33 @@ public class ChatGroupController {
 
     private void updateChatArea(boolean alreadyIn) {
         if (alreadyIn) {
-            chatInfoHBox.setVisible(true);
-            chatPane.setVisible(true);
-            groupChatPfp.setVisible(true);
-            groupChatName.setVisible(true);
-            memberNamesLabel.setVisible(true):
-            groupChatName.setText(Variable.currentChat.getChatName());
-            memberNamesLabel.setText(Variable.currentChat.getMemberNames());
-            showChatHistory();
-            chatOptionsHBox.setVisible(true);
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    chatInfoHBox.setVisible(true);
+                    chatPane.setVisible(true);
+                    groupChatPfp.setVisible(true);
+                    groupChatName.setVisible(true);
+                    memberNamesBtn.setVisible(true);
+                    groupChatName.setText(Variable.currentChat.getChatName());
+                    memberNamesBtn.setText(Variable.currentChat.getMemberNames());
+                    showChatHistory();
+                    chatOptionsHBox.setVisible(true);
+                }
+            });
         } else {
-            chatInfoHBox.setVisible(true);
-            chatPane.setVisible(false);
-            groupChatPfp.setVisible(false);
-            groupChatName.setVisible(false);
-            memberNamesLabel.setVisible(false):
-            chatOptionsHBox.setVisible(false);
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    chatInfoHBox.setVisible(false);
+                    chatPane.setVisible(false);
+                    groupChatPfp.setVisible(false);
+                    groupChatName.setVisible(false);
+                    memberNamesBtn.setVisible(false);
+                    chatOptionsHBox.setVisible(false);
+                }
+            });
+
 
             Label joinGroupLabel = new Label("Join group?");
             Button joinGroupBtn = new Button("Yes");
@@ -213,21 +244,41 @@ public class ChatGroupController {
 
     public void joinCurrentGroup(ActionEvent event) {
         Variable.currentAccount.addChat(Variable.currentChat);
-        refreshChats();
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                refreshChats();
+            }
+        });
+
         updateChatArea(true);
     }
 
 
     public void showChatHistory() {
-        for (Message m: Variable.currentChat.getMessages()) {
-            MessagePane sentMessage = new MessagePane(m.getSender_name(), m.getContent(), m.getSender_name().equals(Variable.currentAccount.getUsername()));
-            chatPane.getChildren().add(sentMessage);
-        }
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                chatPane.getChildren().clear();
+                for (Message m: Variable.currentChat.getMessages()) {
+                    MessagePane sentMessage = new MessagePane(m.getSender_name(), m.getContent(), m.getSender_name().equals(Variable.currentAccount.getUsername()));
+                    chatPane.getChildren().add(sentMessage);
+                }
+            }
+        });
     }
 
     @FXML
     public void updateSearch(ActionEvent event) {
         // TODO: UPDATE WHICH CHATS ARE SHOWN IN SEARCH
+        System.out.println(searchGroupField.getText());
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                refreshChats();
+            }
+        });
     }
 
 
@@ -251,6 +302,8 @@ public class ChatGroupController {
             producer.flush();
             producer.close();
 
+            System.out.println("SENT");
+
             //display newly sent message
             MessagePane sentMessage = new MessagePane(Variable.currentAccount.getUsername(), text, true);
             chatPane.getChildren().add(sentMessage);
@@ -262,7 +315,18 @@ public class ChatGroupController {
     }
 
     public void receive(String chatName) {
+        System.out.println("RECEIVED ORDER TO RELOAD "+chatName);
         Database.getChatByName(chatName).reload();
+        System.out.println(Database.getChatByName(chatName));
+        if (Variable.currentChat.getChatName().equals(chatName)) {
+            showChatHistory();
+        }
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                refreshChats();
+            }
+        });
     }
 
     class MessageReceiver implements Runnable {
@@ -281,6 +345,7 @@ public class ChatGroupController {
                 while (!closed.get()) {
                     ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(1000));
                     for (ConsumerRecord<String, String> record : records) {
+                        System.out.println("RECEIVED");
                         //chat group name (topic) and message (value)
 //                        controller.receive(groupChatName.getText(), record.value());
                         controller.receive(record.value());
@@ -307,4 +372,22 @@ public class ChatGroupController {
 
     }
 
+
+    @FXML
+    public void showGroupChatName(ActionEvent e) {
+        Utility.showPopup(groupChatName, Variable.currentChat.getChatName());
+    }
+
+    @FXML
+    public void showMemberNames(ActionEvent e) {
+        TextArea temp = new TextArea(Variable.currentChat.getMemberNames());
+        temp.setEditable(false);
+        temp.setWrapText(true);
+        Utility.showPopup(memberNamesBtn, temp);
+    }
+
+    @FXML
+    public void showDescription(ActionEvent e) {
+        Utility.showPopup((Node)e.getSource(), Variable.currentChat.getDesc());
+    }
 }
