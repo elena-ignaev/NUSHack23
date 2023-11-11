@@ -156,7 +156,8 @@ public class Chat {
             return Double.parseDouble(textBuilder.toString());
         }
         catch(IOException ex) {
-            return -1;
+            System.out.println("COULDNT USE VECTORIZER");
+            return 0;
         }
     }
 

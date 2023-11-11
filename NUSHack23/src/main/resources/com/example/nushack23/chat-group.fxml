@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="702.0" prefWidth="1006.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.nushack23.Controller.ChatGroupController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="702.0" prefWidth="1006.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.nushack23.Controller.ChatGroupController">
    <center>
       <VBox prefHeight="702.0" prefWidth="783.0" BorderPane.alignment="CENTER">
          <children>
@@ -58,7 +58,7 @@
                         <Font name="Ebrima" size="16.0" />
                      </font>
                   </Button>
-                  <TextField fx:id="messageField" prefHeight="43.0" prefWidth="505.0" promptText="Type your mesage here...">
+                  <TextField fx:id="messageField" prefHeight="43.0" prefWidth="505.0" promptText="Type your message here...">
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
@@ -84,6 +84,20 @@
          <children>
             <AnchorPane prefHeight="702.0" prefWidth="75.0" styleClass="light-gray-background" stylesheets="@chat-style.css">
                <children>
+                  <Button alignment="TOP_CENTER" mnemonicParsing="false" style="-fx-background-color: transparent;" AnchorPane.leftAnchor="3.0" AnchorPane.topAnchor="8.0">
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@mini_logo.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="guideBtn" alignment="TOP_CENTER" layoutX="13.0" layoutY="18.0" mnemonicParsing="false" onAction="#showGuide" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #40bcbc; -fx-background-radius: 15px;" text="?" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="75.0">
+                     <font>
+                        <Font name="Verdana" size="24.0" />
+                     </font>
+                  </Button>
                   <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#logOut" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #e1acaf;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="9.0">
                      <graphic>
                         <ImageView fitHeight="39.0" fitWidth="39.0" pickOnBounds="true">

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="300.0" spacing="25.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <padding>
+      <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+   </padding>
+   <children>
+      <Label text="Guide: ">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <ScrollPane prefHeight="320.0" prefWidth="250.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="230.0">
+               <children>
+                  <VBox prefWidth="225.0" spacing="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
+                     <children>
+                        <VBox>
+                           <children>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@guidepics/guidepic1.png" />
+                                 </image>
+                              </ImageView>
+                              <Label text=" Log in by typing in your username and " wrapText="true">
+                                 <font>
+                                    <Font size="11.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="10.0" layoutY="139.0" text="password. " wrapText="true">
+                                 <font>
+                                    <Font size="11.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <ImageView fitHeight="1000.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@guidepics/guidepic2.png" />
+                                 </image>
+                              </ImageView>
+                              <Label maxWidth="250.0" text="Click “Create New Account” to go to this " wrapText="true">
+                                 <font>
+                                    <Font size="11.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="10.0" layoutY="331.0" maxWidth="250.0" text="page to make a new account " wrapText="true">
+                                 <font>
+                                    <Font size="11.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <ImageView fitHeight="1000.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@guidepics/guidepic3.png" />
+                                 </image>
+                              </ImageView>
+                              <Label text="Search for chats with the search bar " wrapText="true" />
+                           </children>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <VBox spacing="5.0">
+                                 <children>
+                                    <ImageView fitHeight="1000.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@guidepics/guidepic4a.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="1000.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@guidepics/guidepic4b.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </VBox>
+                              <Label text="Click on chats to select them, to chat " wrapText="true" />
+                              <Label layoutX="10.0" layoutY="269.0" text="(if already joined, above the line), or " wrapText="true" />
+                              <Label layoutX="10.0" layoutY="287.0" text="join (if not joined yet, below the line) " wrapText="true" />
+                           </children>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <ImageView fitHeight="1000.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@guidepics/guidepic5.png" />
+                                 </image>
+                              </ImageView>
+                              <Label text="Click on these three labels to see " wrapText="true" />
+                              <Label layoutX="10.0" layoutY="35.0" text="popups with more information " wrapText="true" />
+                           </children>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <ImageView fitHeight="1000.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@guidepics/guidepic6.png" />
+                                 </image>
+                              </ImageView>
+                              <Label text="Press this button to get a popup " wrapText="true" />
+                              <Label layoutX="10.0" layoutY="105.0" text="letting you choose a fun minigame to " wrapText="true" />
+                              <Label layoutX="10.0" layoutY="123.0" text="play :) " wrapText="true" />
+                           </children>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <ImageView fitHeight="1000.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@guidepics/guidepic7.png" />
+                                 </image>
+                              </ImageView>
+                              <Label text="Type a message and send to interact " wrapText="true" />
+                              <Label layoutX="10.0" layoutY="35.0" text="with others! " wrapText="true" />
+                           </children>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <ImageView fitHeight="1000.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@guidepics/guidepic8.png" />
+                                 </image>
+                              </ImageView>
+                              <Label text="Log out with the button on the bottom " wrapText="true" />
+                              <Label layoutX="10.0" layoutY="35.0" text="left when you are done. " wrapText="true" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+   </children>
+</VBox>

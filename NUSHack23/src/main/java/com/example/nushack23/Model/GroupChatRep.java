@@ -42,7 +42,7 @@ public class GroupChatRep extends StackPane {
 
     public void setSelected(boolean isSelected) {
         if (isSelected) {
-            this.contentBox.setStyle("-fx-background-color: #999999; -fx-background-radius: 2em;");
+            this.contentBox.setStyle("-fx-background-color: #808080; -fx-background-radius: 2em;");
         } else {
             this.contentBox.setStyle("-fx-background-color: #aaaaaa; -fx-background-radius: 2em;");
         }

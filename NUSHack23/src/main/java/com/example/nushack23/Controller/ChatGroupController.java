@@ -65,6 +65,8 @@ public class ChatGroupController {
 
     @FXML
     private TextField searchGroupField;
+    @FXML
+    private Button guideBtn;
 
     private Properties consumer_props, producer_props;
     private KafkaConsumer<String, String> consumer;
@@ -493,5 +495,21 @@ public class ChatGroupController {
     @FXML
     public void showDescription(ActionEvent e) {
         Utility.showPopup((Node)e.getSource(), Variable.currentChat.getDesc());
+    }
+
+    @FXML
+    public void showGuide(ActionEvent e) {
+        Stage stage = new Stage();
+
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("guide.fxml"));
+        Scene scene = null;
+        try {
+            scene = new Scene(fxmlLoader.load());
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+        stage.setTitle("Guide");
+        stage.setScene(scene);
+        stage.show();
     }
 }
