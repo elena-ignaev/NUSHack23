@@ -384,9 +384,21 @@ public class ChatGroupController {
         Button drawBtn = new Button();
         drawBtn.setGraphic(imgv);
         drawBtn.setOnAction(this::launch_drawer);
-        drawBtn.setMaxHeight(100);
-        drawBtn.setMaxWidth(100);
-        Utility.showPopup(moreFunctions, drawBtn);
+        imgv.setFitHeight(50);
+        imgv.setFitWidth(50);
+
+        ImageView imgv1 = new ImageView(new Image("file:tictactoe.png"));
+        Button tttBtn = new Button();
+        tttBtn.setGraphic(imgv1);
+        tttBtn.setOnAction(this::launch_tictactoe);
+        imgv1.setFitHeight(50);
+        imgv1.setFitWidth(50);
+
+        VBox vbox = new VBox(5);
+        vbox.setPadding(new Insets(5,5,5,5));
+        vbox.getChildren().addAll(drawBtn, tttBtn);
+
+        Utility.showPopup(moreFunctions, vbox);
     }
 
     public void launch_drawer(ActionEvent event1) {
@@ -475,7 +487,22 @@ public class ChatGroupController {
         flowPane.getChildren().add(hbox);
         Stage stage = new Stage();
         stage.setScene(new Scene(flowPane));
+        stage.getIcons().add(new Image(HelloApplication.class.getResourceAsStream("brushicon.png")));
         stage.show();
+    }
+
+    public void launch_tictactoe(ActionEvent event) {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("tictactoe.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            stage.setTitle("Tic Tac Toe!");
+            stage.setScene(scene);
+            stage.getIcons().add(new Image(HelloApplication.class.getResourceAsStream("tictactoe.png")));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
