@@ -10,13 +10,15 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -368,8 +370,103 @@ public class ChatGroupController {
     }
 
     @FXML
-    public void addFunctions() {
+    public void addFunctions(ActionEvent event) {
+        ImageView imgv = new ImageView(new Image("file:brushicon.png"));
+        Button drawBtn = new Button();
+        drawBtn.setGraphic(imgv);
+        drawBtn.setOnAction(this::launch_drawer);
+        drawBtn.setMaxHeight(100);
+        drawBtn.setMaxWidth(100);
+        Utility.showPopup(moreFunctions, drawBtn);
+    }
 
+    public void launch_drawer(ActionEvent event1) {
+        FlowPane flowPane = new FlowPane();
+        Canvas canvas = new Canvas(800, 600);
+        flowPane.getChildren().add(canvas);
+        GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
+
+        graphicsContext.setFill(Color.WHITE);
+        graphicsContext.fillRect(0, 0, 800,600);
+
+
+        Insets insets = new Insets(10,10,10,10);
+
+        ColorPicker brushColor = new ColorPicker();
+        Slider slider = new Slider(0, 10, 1);
+        slider.setShowTickMarks(true);
+        slider.setShowTickLabels(true);
+        slider.setMajorTickUnit(1.0f);
+        slider.setBlockIncrement(0.5f);
+
+
+        Button draw = new Button("Draw");
+        Button erase = new Button("Erase");
+
+        draw.setOnAction(e -> {
+            canvas.setOnMouseDragged((event) -> {
+                graphicsContext.setFill(brushColor.getValue());
+                graphicsContext.fillRect(event.getX(), event.getY(), 5,5);
+            });
+        });
+
+        erase.setOnAction(e -> {
+            canvas.setOnMouseDragged((event) -> {
+                graphicsContext.clearRect(event.getX(), event.getY(), 5,5);
+            });
+        });
+
+
+        try {
+            draw.setOnAction(e -> {
+                canvas.setOnMouseDragged((event) -> {
+                    graphicsContext.setFill(brushColor.getValue());
+                    graphicsContext.fillRect(event.getX(), event.getY(), slider.getValue(), slider.getValue());
+                });
+            });
+
+            erase.setOnAction(e -> {
+                canvas.setOnMouseDragged((event) -> {
+                    graphicsContext.setFill(Color.WHITE);
+                    graphicsContext.fillRect(event.getX(), event.getY(), slider.getValue(), slider.getValue());
+                });
+            });
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+
+        brushColor.setStyle("-fx-background-color: #48b9da;");
+        draw.setStyle("-fx-background-color: #48b9da;");
+        erase.setStyle("-fx-background-color: #48b9da;");
+
+        draw.setOnMouseEntered(e -> {draw.setStyle("-fx-background-color: #1c91bd;");});
+        erase.setOnMouseEntered(e -> {erase.setStyle("-fx-background-color: #1c91bd;");});
+
+        draw.setOnMouseExited(e -> {draw.setStyle("-fx-background-color: #48b9da;");});
+        erase.setOnMouseExited(e -> { erase.setStyle("-fx-background-color: #48b9da;"); });
+
+        Button clear = new Button("Clear");
+        clear.setStyle("-fx-background-color: #48b9da;");
+        clear.setOnMouseEntered(e -> {clear.setStyle("-fx-background-color: #1c91bd;");});
+        clear.setOnMouseExited(e -> { clear.setStyle("-fx-background-color: #48b9da;"); });
+
+        clear.setOnAction(e -> {
+            graphicsContext.setFill(Color.WHITE);
+            graphicsContext.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        });
+
+
+        HBox hbox = new HBox(draw, brushColor, erase, slider, clear);
+        hbox.setPrefWidth(800);
+        hbox.setSpacing(10);
+        hbox.setPadding(insets);
+        hbox.setStyle("-fx-background-color: lightgray");
+        hbox.setAlignment(Pos.CENTER);
+
+        flowPane.getChildren().add(hbox);
+        Stage stage = new Stage();
+        stage.setScene(new Scene(flowPane));
+        stage.show();
     }
 
 
