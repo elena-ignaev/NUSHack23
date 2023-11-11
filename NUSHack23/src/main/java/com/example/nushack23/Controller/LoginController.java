@@ -123,6 +123,7 @@ public class LoginController {
         }
         catch(IOException ioex) {
             Utility.showPopup(loginButton, "Home page could not be loaded.");
+            ioex.printStackTrace();
         }
 
     }

@@ -121,7 +121,7 @@ public class Chat {
     }
 
     // vectorizer stuff
-    //private static Word2Vec w2vModel = WordVectorSerializer.readWord2VecModel("path/to/w2v_model.bin");
+    // private static Word2Vec w2vModel = WordVectorSerializer.readWord2VecModel("path/to/w2v_model.bin");
 
     public static double compareTexts(String a, String b) {
         try
