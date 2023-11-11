@@ -103,6 +103,7 @@ public class Database {
     * Accounts to get list of account names
     * then [account name]_password_hash will have password hash to accounts
     * then [account name]_chats will have list of all chat names it has
+    * then [account name]_affinities will have a list of affinities to all chats
     *
     * Chats to get list of all chat names
     * then [chat name]_description will have a chat description
